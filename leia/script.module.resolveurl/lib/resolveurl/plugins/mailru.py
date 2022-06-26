@@ -1,4 +1,7 @@
 """
+    OVERALL CREDIT TO:
+        t0mm0, Eldorado, VOINAGE, BSTRDMKR, tknorris, smokdpi, TheHighway
+
     Plugin for ResolveURL
     Copyright (C) 2011 t0mm0
 
@@ -18,12 +21,12 @@
 
 import re
 import json
-from resolveurl.lib import helpers
+from resolveurl.plugins.lib import helpers
 from resolveurl.resolver import ResolveUrl, ResolverError
 
 
 class MailRuResolver(ResolveUrl):
-    name = 'MailRu'
+    name = "mail.ru"
     domains = ['mail.ru', 'my.mail.ru', 'm.my.mail.ru', 'videoapi.my.mail.ru', 'api.video.mail.ru']
     # This pattern is starting to becoming unreliable and we may have to rethink it to support all the current urls
     pattern = r'(?://|\.)(mail\.ru)/(?:\w+/)?(?:videos/embed/)?(inbox|mail|embed|mailua|list|bk|v)/(?:([^/]+)/[^.]+/)?(\d+)'

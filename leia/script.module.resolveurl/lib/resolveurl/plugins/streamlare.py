@@ -17,37 +17,30 @@
 """
 
 import json
-from resolveurl.lib import helpers
+from resolveurl.plugins.lib import helpers
 from resolveurl import common
 from resolveurl.resolver import ResolveUrl, ResolverError
 
 
 class StreamLareResolver(ResolveUrl):
-    name = 'StreamLare'
-    domains = ['streamlare.com', 'slmaxed.com', 'sltube.org']
-    pattern = r'(?://|\.)((?:streamlare|sl(?:maxed|tube))\.(?:com|org))/(?:e|v)/([0-9A-Za-z]+)'
+    name = "streamlare"
+    domains = ["streamlare.com"]
+    pattern = r'(?://|\.)(streamlare\.com)/(?:e|v)/([0-9A-Za-z]+)'
 
     def get_media_url(self, host, media_id):
         web_url = self.get_url(host, media_id)
-        api_durl = 'https://{0}/api/video/download/get'.format(host)
-        api_surl = 'https://{0}/api/video/stream/get'.format(host)
+        api_url = 'https://streamlare.com/api/video/get'
         headers = {'User-Agent': common.FF_USER_AGENT,
                    'Referer': web_url,
                    'X-Requested-With': 'XMLHttpRequest'}
         data = {'id': media_id}
-        html = json.loads(self.net.http_POST(api_surl, headers=headers, form_data=data, jdata=True).content)
-        result = html.get('result', {})
-        source = result.get('file') \
-            or result.get('Original', {}).get('file') \
-            or result.get(list(result.keys())[0], {}).get('file')
-        if not source:
-            html = self.net.http_POST(api_durl, headers=headers, form_data=data, jdata=True).content
-            source = json.loads(html).get('result', {}).get('Original', {}).get('url')
-        if source:
+        html = self.net.http_POST(api_url, headers=headers, form_data=data, jdata=True).content
+        items = json.loads(html).get('result')
+        sources = [('540p' if item == 'Original' else item, items.get(item).get('src')) for item in items.keys()]
+        if sources:
             headers.pop('X-Requested-With')
-            if '?token=' in source:
-                source = helpers.get_redirect_url(source, headers=headers)
-            return source + helpers.append_headers(headers)
+            sources.sort(key=lambda x: int(x[0][:-1]), reverse=True)
+            return helpers.pick_source(sources) + helpers.append_headers(headers)
 
         raise ResolverError('File Not Found or removed')
 

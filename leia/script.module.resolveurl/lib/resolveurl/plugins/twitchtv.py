@@ -1,5 +1,5 @@
 """
-    Plugin for ResolveURL
+    Plugin for ResolveUrl
     Copyright (C) 2016 anxdpanic
 
     This program is free software: you can redistribute it and/or modify
@@ -9,15 +9,15 @@
 
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
     GNU General Public License for more details.
 
     You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+    along with this program. If not, see <http://www.gnu.org/licenses/>.
 """
 
 import re
-from resolveurl.lib import helpers
+from resolveurl.plugins.lib import helpers
 from resolveurl.common import i18n
 from resolveurl.resolver import ResolveUrl, ResolverError
 
@@ -30,7 +30,7 @@ except ImportError:
 
 
 class TwitchResolver(ResolveUrl):
-    name = 'Twitch'
+    name = 'twitch'
     domains = ['twitch.tv']
     pattern = r'https?://(?:www\.)?(twitch\.tv)/(.+?)(?:\?|$)'
     exclusion_pattern = r'^https?://(?:www\.)?twitch\.tv/(?:directory|user|p|jobs|store|login|products|search|.+?/profile|videos/all)(?:[?/].*)?$'

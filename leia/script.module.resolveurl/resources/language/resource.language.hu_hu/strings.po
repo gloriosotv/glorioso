@@ -283,11 +283,3 @@ msgstr "Uptobox autorizáció törölve"
 msgctxt "#33069"
 msgid "Uptobox Resolver Authorised"
 msgstr "Uptobox Resolver autorizáció sikeres"
-
-msgctxt "#33101"
-msgid "Clean Settings File"
-msgstr "Tisztítsa meg a beállítási fájlt"
-
-msgctxt "#33102"
-msgid "Settings File cleaned"
-msgstr "Beállítások fájl megtisztítva"

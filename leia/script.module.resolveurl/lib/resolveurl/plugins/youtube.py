@@ -1,5 +1,5 @@
 """
-    Plugin for ResolveURL
+    Plugin for ResolveUrl
     Copyright (C) 2018 gujal
 
     This program is free software: you can redistribute it and/or modify
@@ -15,13 +15,12 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-
 from resolveurl.resolver import ResolveUrl
 from resolveurl.lib import kodi
 
 
-class YouTubeResolver(ResolveUrl):
-    name = 'YouTube'
+class YoutubeResolver(ResolveUrl):
+    name = "youtube"
     domains = ['youtube.com', 'youtu.be', 'youtube-nocookie.com']
     pattern = r'''https?://(?:[0-9A-Z-]+\.)?(?:(youtu\.be|youtube(?:-nocookie)?\.com)/?\S*?[^\w\s-])([\w-]{11})(?=[^\w-]|$)(?![?=&+%\w.-]*(?:['"][^<>]*>|</a>))[?=&+%\w.-]*'''
 
@@ -39,4 +38,4 @@ class YouTubeResolver(ResolveUrl):
         return xml
 
     def get_url(self, host, media_id):
-        return self._default_get_url(host, media_id, template='https://www.youtube.com/get_video_info?html5=1&video_id={media_id}')
+        return 'https://www.youtube.com/get_video_info?html5=1&video_id=%s' % media_id

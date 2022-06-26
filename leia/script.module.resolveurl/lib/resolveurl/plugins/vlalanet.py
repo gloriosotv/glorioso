@@ -1,5 +1,5 @@
 """
-    Plugin for ResolveURL
+    Plugin for ResolveUrl
     Copyright (C) 2020 gujal
 
     This program is free software: you can redistribute it and/or modify
@@ -18,22 +18,22 @@
 
 import re
 import json
-from resolveurl.lib import helpers
+from resolveurl.plugins.lib import helpers
 from resolveurl.resolver import ResolveUrl, ResolverError
 from resolveurl import common
 
 
 class VlalaNetResolver(ResolveUrl):
-    name = 'VlalaNet'
-    domains = ['videoslala.net']
-    pattern = r'(?://|\.)(videoslala\.net)/embed/([^\n]+)'
+    name = "vlalanet"
+    domains = ["videoslala.net", "myfeminist.com"]
+    pattern = r'(?://|\.)((?:videoslala|myfeminist)\.(?:com|net))/embed/([^\n]+)'
 
     def get_media_url(self, host, media_id):
         web_url = self.get_url(host, media_id)
         headers = {'User-Agent': common.FF_USER_AGENT}
         html = self.net.http_GET(web_url, headers=headers).content
 
-        html += helpers.get_packed_data(html)
+        html = helpers.get_packed_data(html)
         sources = re.search(r'sources:\s*(\[[^]]+])', html)
         if sources:
             sources = json.loads(sources.group(1))
@@ -44,6 +44,4 @@ class VlalaNetResolver(ResolveUrl):
         raise ResolverError('No playable video found.')
 
     def get_url(self, host, media_id):
-        if media_id.endswith('-mp4'):
-            return self._default_get_url(host, media_id, template='https://cdn1.{host}/embed/{media_id}')
         return self._default_get_url(host, media_id, template='https://{host}/embed/{media_id}')

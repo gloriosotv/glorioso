@@ -1,5 +1,5 @@
 """
-    Plugin for ResolveURL
+    Plugin for ResolveUrl
     Copyright (C) 2020 gujal
 
     This program is free software: you can redistribute it and/or modify
@@ -17,21 +17,19 @@
 """
 
 from resolveurl.plugins.__resolve_generic__ import ResolveGeneric
-from resolveurl.lib import helpers
+from resolveurl.plugins.lib import helpers
 
 
 class BitchuteResolver(ResolveGeneric):
 
-    name = 'Bitchute'
+    name = "bitchute.com"
     domains = ['bitchute.com']
     pattern = r'(?://|\.)(bitchute\.com)/(?:video|embed)/([\w-]+)/'
 
     def get_media_url(self, host, media_id):
-        return helpers.get_media_url(
-            self.get_url(host, media_id),
-            patterns=[r'''source src=['"](?P<url>https.+?\.mp4)['"]\s*type=['"]video/mp4['"]'''],
-            generic_patterns=False
-        )
+        return helpers.get_media_url(self.get_url(host, media_id),
+                                     patterns=[r'''source src=['"](?P<url>https.+?\.mp4)['"]\s*type=['"]video/mp4['"]'''],
+                                     generic_patterns=False)
 
     def get_url(self, host, media_id):
         return self._default_get_url(host, media_id, 'https://www.{host}/video/{media_id}')

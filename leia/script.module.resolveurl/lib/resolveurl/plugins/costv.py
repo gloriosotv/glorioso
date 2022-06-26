@@ -18,12 +18,12 @@
 
 import json
 from resolveurl import common
-from resolveurl.lib import helpers
+from resolveurl.plugins.lib import helpers
 from resolveurl.resolver import ResolveUrl, ResolverError
 
 
 class CosTVResolver(ResolveUrl):
-    name = 'CosTV'
+    name = 'costv'
     domains = ['cos.tv']
     pattern = r'(?://|\.)(cos\.tv)/videos/play/([0-9a-zA-Z]+)'
 

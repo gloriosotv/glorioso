@@ -1,5 +1,5 @@
 """
-    Plugin for ResolveURL
+    Plugin for ResolveUrl
     Copyright (C) 2021 ADDON-LAB, KAR10S
 
     This program is free software: you can redistribute it and/or modify
@@ -17,13 +17,13 @@
 """
 
 import re
-from resolveurl.lib import helpers
+from resolveurl.plugins.lib import helpers
 from resolveurl import common
 from resolveurl.resolver import ResolveUrl, ResolverError
 
 
-class MegaUpNetResolver(ResolveUrl):
-    name = 'MegaUpNet'
+class MegaupNetResolver(ResolveUrl):
+    name = 'megaupnet'
     domains = ['megaup.net']
     pattern = r'(?://|\.)(megaup\.net)/([0-9a-zA-Z]+)'
 

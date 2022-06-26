@@ -16,45 +16,36 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-import re
-import base64
-from six.moves import urllib_parse
-from resolveurl.lib import helpers, captcha_lib
+from resolveurl.plugins.lib import helpers
 from resolveurl import common
 from resolveurl.resolver import ResolveUrl, ResolverError
+import re
 
 
 class PandaFilesResolver(ResolveUrl):
-    name = 'PandaFiles'
+    name = "pandafiles"
     domains = ['pandafiles.com']
     pattern = r'(?://|\.)(pandafiles\.com)/([0-9a-zA-Z]+)'
 
     def get_media_url(self, host, media_id):
         web_url = self.get_url(host, media_id)
+        rurl = 'https://{0}/'.format(host)
         headers = {'User-Agent': common.FF_USER_AGENT,
-                   'Origin': web_url.rsplit('/', 1)[0],
-                   'Referer': web_url}
+                   'Origin': rurl[:-1],
+                   'Referer': rurl}
         data = {
-            'op': 'download1',
+            'op': 'download2',
             'usr_login': '',
             'id': media_id,
-            'referer': web_url,
+            'referer': rurl,
             'method_free': 'Free Download'
         }
         html = self.net.http_POST(web_url, form_data=data, headers=headers).content
-        payload = helpers.get_hidden(html)
-        payload.update(captcha_lib.do_captcha(html))
-        html = self.net.http_POST(web_url, form_data=payload, headers=headers).content
-        source = re.search(r'id="direct_link".*?href="([^"]+)', html, re.S)
+        source = re.search(r'id="direct_link">\s*<a\s*href="([^"]+)', html)
         if source:
-            headers.update({'verifypeer': 'false'})
-            query = urllib_parse.parse_qsl(urllib_parse.urlparse(source.group(1)).query)
-            if not query:
-                return source.group(1) + helpers.append_headers(headers)
-            src = base64.b64decode(query[0][1]).decode('utf-8')
-            return src + helpers.append_headers(headers)
+            return source.group(1) + helpers.append_headers(headers)
 
         raise ResolverError('File Not Found or removed')
 
     def get_url(self, host, media_id):
-        return self._default_get_url(host, media_id, template='https://{host}/document')
+        return self._default_get_url(host, media_id, template='https://{host}/{media_id}')

@@ -1,5 +1,5 @@
 """
-    Plugin for ResolveURL
+    Plugin for ResolveUrl
     Copyright (C) 2019 gujal
 
     This program is free software: you can redistribute it and/or modify
@@ -17,13 +17,13 @@
 """
 
 import re
-from resolveurl.lib import helpers
+from resolveurl.plugins.lib import helpers
 from resolveurl import common
 from resolveurl.resolver import ResolveUrl, ResolverError
 
 
-class StreamZResolver(ResolveUrl):
-    name = 'StreamZ'
+class StreamzResolver(ResolveUrl):
+    name = 'streamz'
     domains = ['streamz.cc', 'streamz.vg', 'streamzz.to', 'streamz.ws']
     pattern = r'(?://|\.)(streamzz?\.(?:cc|vg|to|ws))/([0-9a-zA-Z]+)'
 

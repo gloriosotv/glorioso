@@ -1,5 +1,5 @@
 """
-    Plugin for ResolveURL
+    Plugin for ResolveUrl
     Copyright (C) 2020 gujal
 
     This program is free software: you can redistribute it and/or modify
@@ -18,14 +18,14 @@
 
 import json
 from six.moves import urllib_error, urllib_request
-from resolveurl.lib import helpers
+from resolveurl.plugins.lib import helpers
 from resolveurl import common
 from resolveurl.resolver import ResolveUrl, ResolverError
 
 
 class VeohResolver(ResolveUrl):
-    name = 'Veoh'
-    domains = ['veoh.com']
+    name = "veoh"
+    domains = ["veoh.com"]
     pattern = r'(?://|\.)(veoh\.com)/(?:watch/|.+?permalinkId=)?([0-9a-zA-Z/]+)'
 
     def get_media_url(self, host, media_id):
