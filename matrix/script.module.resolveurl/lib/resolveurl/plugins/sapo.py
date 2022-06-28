@@ -19,12 +19,12 @@
 import re
 from resolveurl import common
 from resolveurl.resolver import ResolveUrl, ResolverError
-from resolveurl.lib import helpers
+from resolveurl.plugins.lib import helpers
 
 
 class SapoResolver(ResolveUrl):
-    name = 'Sapo'
-    domains = ['videos.sapo.pt']
+    name = "sapo"
+    domains = ["videos.sapo.pt"]
     pattern = r'(?://|\.)(videos\.sapo\.pt)/([0-9a-zA-Z]+)'
 
     def __init__(self):

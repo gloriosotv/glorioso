@@ -1,5 +1,5 @@
 """
-    Plugin for ResolveURL
+    Plugin for ResolveUrl
     Copyright (C) 2020 gujal
 
     This program is free software: you can redistribute it and/or modify
@@ -18,17 +18,14 @@
 
 import re
 from resolveurl import common
-from resolveurl.lib import helpers
+from resolveurl.plugins.lib import helpers
 from resolveurl.resolver import ResolveUrl, ResolverError
 
 
 class AparatResolver(ResolveUrl):
-    name = 'Aparat'
+    name = "aparat"
     domains = ['aparat.cam', 'wolfstream.tv']
     pattern = r'(?://|\.)((?:aparat\.cam|wolfstream\.tv))/(?:embed-)?([0-9a-zA-Z]+)'
-
-    def __init__(self):
-        self.net = common.Net(ssl_verify=False)
 
     def get_media_url(self, host, media_id):
         web_url = self.get_url(host, media_id)
@@ -46,7 +43,6 @@ class AparatResolver(ResolveUrl):
             html2 = self.net.http_GET(web_url, headers=headers).content
             r = re.search(r'<a\s*href="([^"]+)[^>]+>Direct', html2)
             if r:
-                headers.update({'verifypeer': 'false'})
                 return r.group(1) + helpers.append_headers(headers)
 
         match = re.search(r'(?:src|file):\s*"([^"]+)', html)
@@ -54,7 +50,6 @@ class AparatResolver(ResolveUrl):
             html2 = self.net.http_GET(match.group(1), headers=headers).content
             sources = re.findall(r'RESOLUTION=\d+x(?P<label>[\d]+).+\n(?!#)(?P<url>[^\n]+)', html2, re.IGNORECASE)
             if sources:
-                headers.update({'verifypeer': 'false'})
                 return helpers.pick_source(helpers.sort_sources_list(sources)) + helpers.append_headers(headers)
 
         raise ResolverError('Video Link Not Found')

@@ -1,5 +1,8 @@
 """
-    Plugin for ResolveURL
+    OVERALL CREDIT TO:
+        t0mm0, Eldorado, VOINAGE, BSTRDMKR, tknorris, smokdpi, TheHighway
+
+    Plugin for ResolveUrl
     Copyright (C) 2011 t0mm0
 
     This program is free software: you can redistribute it and/or modify
@@ -18,13 +21,13 @@
 
 import re
 import json
-from resolveurl.lib import helpers
+from resolveurl.plugins.lib import helpers
 from resolveurl.resolver import ResolveUrl, ResolverError
 
 
 class PlayWireResolver(ResolveUrl):
-    name = 'PlayWire'
-    domains = ['playwire.com']
+    name = "playwire"
+    domains = ["playwire.com"]
     pattern = r'(?://|\.)(config\.playwire\.com)/(.+?)/(?:zeus|player)\.json'
     pattern2 = r'(?://|\.)(cdn\.playwire\.com.+?\d+)/(?:config|embed)/(\d+)'
 

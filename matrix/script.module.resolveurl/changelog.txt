@@ -1,20 +1,22 @@
-Version 5.1.70 (June 18, 2022)
+Version 5.1.53 (Dec 05, 2021)
 - Code Base Changes:
-    - option to cleanup defunct resolvers from settings
-    - remove numpy usage
+    - update supported video extensions
 
 - Resolvers Added:
-    - filemoon
-
+    - peertube
+    - streamhub
+    - vtube
+ 
 - Resolvers Fixed/Updated:
-    - cloudb
-    - fembed
+    - lbry
     - pandafiles
     - streamingcommunity
-    - streamlare
-    - streamtape
-    - voesx
-
+    - streamsb
+    - supervideo
+    - tvlogy
+    - vidbom
+    - vudeo
+    - vupload
 
 - Resolvers Removed
     - None

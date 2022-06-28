@@ -15,20 +15,21 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-from kodi_six import xbmcgui, xbmcaddon
+import xbmcgui
+import xbmcaddon
 import six
 from resolveurl.lib import log_utils
 
 logger = log_utils.Logger.get_logger(__name__)
 addon = xbmcaddon.Addon('script.module.resolveurl')
-DIALOG_XML = 'ProgressDialog.xml' if six.PY2 else 'ProgressDialog2.xml'
+DIALOG_XML = 'ProgressDialog.xml'
 
 
 class ProgressDialog(object):
     dialog = None
 
     def get_path(self):
-        return addon.getAddonInfo('path')
+        return addon.getAddonInfo('path') if six.PY3 else addon.getAddonInfo('path').decode('utf-8')
 
     def create(self, heading, line1='', line2='', line3=''):
         try:
