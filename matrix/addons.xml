@@ -210,4 +210,29 @@ v0.5.0 (2020-06-25)
         </assets>
     </extension>
 </addon>
+<addon id="plugin.program.areswizard" name="[COLOR red][B]Ares Wizard[/B][/COLOR]" version="1.0" provider-name="[COLOR red]Ares Wizard[/COLOR]">
+  <requires>
+    <import addon="xbmc.python" version="3.0.0"/>
+    <import addon="script.module.six" />
+    <import addon="script.module.kodi-six" />
+  	<import addon="script.module.requests"/>
+    <import addon="script.kodi.android.update" optional="true" version="1.3.2" />
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="default.py">
+        <provides>executable</provides>
+  </extension>
+  <extension point="xbmc.service" library="startup.py" start="startup" />
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en">[COLOR red][B]Ares Wizard - Your one stop for Kodi setup + maintenance[/B][/COLOR]</summary>
+    <description lang="en">[COLOR red][B]Ares Wizard[/B][/COLOR].</description>
+    <platform>all</platform>
+    <assets>
+        <icon>icon.png</icon>
+        <fanart>fanart.jpg</fanart>
+        <banner></banner>
+        <clearlogo></clearlogo>
+        <screenshot></screenshot>
+    </assets>
+  </extension>
+</addon>
 </addons>
